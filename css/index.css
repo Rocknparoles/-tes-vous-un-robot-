@@ -1,0 +1,36 @@
+#fond-index{
+  width: 672px;
+  height: 672px;
+  margin-left: auto;
+  margin-right: auto;
+
+  position: absolute;
+  -webkit-animation:spin 15s linear infinite;
+  -moz-animation:spin 15s linear infinite;
+  animation:spin 15s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+
+.conteneur{
+  position: relative;
+  width:672px;
+  height:672px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+body {
+  background-color: #fb815b;
+}
+
+p, h1{
+  color: white;
+  font-family: "Comic Sans MS";
+}

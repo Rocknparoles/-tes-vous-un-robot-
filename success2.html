@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vous êtes bien humain ! 👍</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <style media="screen">
+
+    .texte {
+      text-align: center;
+      height:672px;
+      width: 672px;
+      top:200px;
+      position: absolute;
+    }
+
+
+
+        #laugh{
+          height:350px;
+          width: 500px;
+          animation: shake 0.5s;
+          animation-iteration-count: infinite;
+        }
+
+  @keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+    </style>
+  </head>
+  <body>
+
+
+    <div class="conteneur">
+      <img src="img/fondIndex.jpg" alt="fondquibouge" id="fond-index" >
+      <div class="texte">
+        <p id="haha"></p>
+        <p>Très distrayante plaisanterie, mon compagnon humain. <br>Un instant j’ai pensé que vous étiez vraiment un robot. </br>Vous pouvez maintenant quitter ce site et reprendre des activités humaines typiques telles que bouger vos jambes pour avancer ou encore respirer de l’oxygène.</p>
+        <img src="img/laugh.png" alt="haha" id="laugh">
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+
+  var positionTexte;
+  positionTexte="haha";
+  creeMessage("Hahahahahahahahahaha. Haha.");
+
+
+  function creeMessage(chaine){
+    var nb_car = chaine.length;
+    var tableau = chaine.split("");
+    texte = new Array;
+    var txt = '';
+    var nb_msg = nb_car - 1;
+
+    for (i=0; i<nb_car; i++) {
+      texte[i] = txt+tableau[i];
+      var txt = texte[i];
+    }
+
+    current_texte = 0;
+    afficheMessage();
+    var intervalle = setInterval("afficheMessage()",100);
+  }
+
+    function afficheMessage() {
+      if(current_texte<texte.length){
+        document.getElementById(positionTexte).innerHTML = texte[current_texte];
+        current_texte++;
+      }
+      if(current_texte==22){
+        sleep(1.5);
+      }
+    }
+
+    function sleep(seconds){
+        var waitUntil = new Date().getTime() + seconds*1000;
+        while(new Date().getTime() < waitUntil) true;
+    }
+
+  </script>
+</html>

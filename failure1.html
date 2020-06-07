@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vous êtes peut-être un robot sans le savoir 🤖🤔</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <style media="screen">
+
+    .question {
+      text-align: center;
+      height:672px;
+      width: 672px;
+      top:200px;
+      position: absolute;
+    }
+
+
+
+    #doubt{
+      width:30px;
+      height:30px;
+      position:relative;
+      left:0px;
+      top:-15px;
+      z-index: 3;
+    }
+
+
+
+    #cadre {
+    	margin-left: auto;
+    	margin-right:auto;
+    	margin-top:auto;
+    	width:672px;
+    	height:672px;
+    }
+
+
+
+    </style>
+    <script type="text/javascript">
+
+    var X=2, Y=2, l=0 , t=0;
+
+    function i(n){
+    	return document.images[n]
+    }
+
+    window.onload=function(){
+      setInterval(function(){
+    	l+=X;
+    	t+=Y;
+    	if(l<0 || l>i("fond-index").width-i("doubt").width){
+    		X*=-1
+    	}
+    	if(t>i("fond-index").height-i("doubt").height || t<0){
+    		Y*=-1
+    	}
+
+    	i("doubt").style.left=l+"px";
+    	i("doubt").style.top=t+"px";},10)
+    }
+
+
+
+
+
+
+      var textePosition;
+
+      function valider(){
+        var reponse = document.getElementById('reponse').value;
+        var bonneReponse = 28397.975 * 97382.674;
+        if(reponse == bonneReponse){
+          window.location="main.html";
+        } else if (reponse != "" && reponse != "1"){
+          window.location="success2.html";
+        } else {
+          textePosition = "essaieEncore";
+          creeMessage("Mauvaise volonté détectée.");
+        }
+      }
+
+      function creeMessage(chaine) {
+        var nb_car = chaine.length;
+        var tableau = chaine.split("");
+        texte = new Array;
+        var txt = '';
+        var nb_msg = nb_car - 1;
+
+        for (i=0; i<nb_car; i++) {
+          texte[i] = txt+tableau[i];
+          var txt = texte[i];
+        }
+        current_texte = 0;
+        texte[-1]="a";
+        var id = setInterval(afficheMessage, 70);
+        function afficheMessage() {
+          if(current_texte>=texte.length){
+            clearInterval(id);
+          }else{
+            document.getElementById(textePosition).innerHTML = texte[current_texte];
+            current_texte++;
+          }
+
+        }
+      }
+
+
+
+
+    </script>
+  </head>
+  <body>
+
+
+    <div class="conteneur">
+      <div id="cadre">
+      	<img id="doubt" alt="doute" src="img/doubt.png" style="left: 120px; top: 12px;">
+      	<img id="fond-index" alt="fondquibouge" src="img/fondIndex.jpg">
+      </div>
+
+      <div class="question">
+        <h1>Êtes-vous VRAIMENT un robot ?</h1>
+        <p>28397.975 * 97382.674 = </p>
+        <input type="text" id="reponse" placeholder="???" value="">
+        <button type="button" onclick="valider()">ok</button>
+        <p id="essaieEncore"> </p>
+        <p id="test"> </p>
+      </div>
+    </div>
+
+
+  </body>
+</html>

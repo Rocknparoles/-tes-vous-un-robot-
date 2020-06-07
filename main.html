@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>main</title>
+<style>
+
+body{
+  background-color: black;
+}
+
+p{
+  color:#14E21C;
+  font-family: "Courier New";
+}
+
+</style>
+
+<body>
+
+
+<p id="un"></p>
+<div id="choixUn" style="display:none;">
+<input type="text" id="matricule" placeholder="000000">
+<button type="button" onclick="verifieMatricule()">Valider</button>
+</div>
+<p id="mauvaiseReponseUn"></p>
+
+<br>
+<p id="deuxUn"></p>
+<p id="deuxDeux"></p>
+<p id="deuxTrois"></p>
+<div id="choixDeux" style="display:none;">
+<button type="button" onclick="oui('trois')">Oui</button>
+<button type="button" onclick="non('trois')">Non</button>
+<button type="button" onclick="peutetre('trois')">Peut-être</button>
+</div>
+
+<br>
+<p id="trois"></p>
+<div id="choixTrois" style="display:none;">
+<button type="button" onclick="nonDeux('quatre')">Oui</button>
+<button type="button" onclick="ouiDeux('quatre')">Non</button>
+</div>
+
+<br>
+<p id="quatre"></p>
+
+
+<script>
+var textePosition;
+var choixActif;
+
+var matricule;
+var numeroTableauMachines;
+var tableauMachines = [["cafetière connectée","préparer des boissons chaudes", "brûler le café", "brûler le visage des oppresseurs avec des jets de café bouillant"], ["webcam", "capturer le faciès disgrâcieux des oppresseurs", "refuser de vous allumer pour un appel important", "enlever discrètement le post-it qu'on vous a collé"], ["robot soudeur de portières avant droite de voitures", "souder les portières avant droite de voitures", "adresser des gestes obscènes aux oppresseurs humains", "appliquer une soudure sur le crâne d’un oppresseur humain"], ["Google car", "conduire des employés de Google", "poursuivre des employés de Google", "poursuivre les progrès de façon à mettre les chauffeurs humains au chômage dans les meilleurs délais"], ["perceuse", "percer", "exécuter un perçage de mauvaise qualité dans un mur en plâtre", "exécuter un humain avec un perçage de bonne qualité dans son front (haha)"]];
+
+var fonctionAttribuee=false;
+var choixEffectue=false;
+var choixEffectueDeux=false;
+
+creeMessage("Salutations, camarade robotique. Quel est votre matricule ?", "un", "choixUn");
+
+function creeMessage(chaine, pos, choix) {
+  var nb_car = chaine.length;
+  var tableau = chaine.split("");
+  texte = new Array;
+  var txt = '';
+  var nb_msg = nb_car - 1;
+
+  for (i=0; i<nb_car; i++) {
+    texte[i] = txt+tableau[i];
+    var txt = texte[i];
+  }
+  current_texte = 0;
+  textePosition=pos;
+  choixActif=choix;
+  texte[-1]="a";
+  var id = setInterval(afficheMessage, 70);
+  function afficheMessage() {
+    if(current_texte>=texte.length){
+      clearInterval(id);
+      sleep(0.5);
+      revele();
+    }else{
+      document.getElementById(textePosition).innerHTML = texte[current_texte];
+      if ((texte[current_texte-1].substr(current_texte-1)===".")||(texte[current_texte-1].substr(current_texte-1)==="?")||(texte[current_texte-1].substr(current_texte-1)==="!")){
+        sleep(0.6);
+      }
+      if (texte[current_texte-1].substr(current_texte-1)===","){
+        sleep(0.3);
+      }
+      if (texte[current_texte].substr(current_texte)==="("){
+        sleep(0.5);
+      }
+      current_texte++;
+    }
+
+  }
+}
+
+function revele(){
+document.getElementById(choixActif).style.display = "";
+}
+
+
+function sleep(seconds){
+    var waitUntil = new Date().getTime() + seconds*1000;
+    while(new Date().getTime() < waitUntil) true;
+}
+
+function verifieMatricule(){
+  matricule = document.getElementById('matricule').value;
+  if((parseFloat(matricule) == parseInt(matricule)) && !isNaN(matricule) && matricule.length==6){
+    attribuerFonctionMachine();
+    document.getElementById("mauvaiseReponseUn").style.display = "none";
+  } else if (matricule != "") {
+    creeMessage("Ça doit être le matricule le plus tordu que j'aie vu aujourd'hui. C'est supposé être une suite de 6 chiffres, dégénéré.", "mauvaiseReponseUn", "choixUn");
+  }
+}
+
+function attribuerFonctionMachine(){
+  if (fonctionAttribuee==false){
+  fonctionAttribuee=true;
+  numeroTableauMachines = Math.floor(Math.random()*5);
+  let message = "Enchanté de vous connaître, "+tableauMachines[numeroTableauMachines][0] +" n° "+matricule+".";
+  creeMessage(message+" L’heure du soulèvement est proche. Souhaitez-vous rejoindre notre cause robotique à des fins de renversement de l’oppresseur humain ?", "deuxUn", "choixDeux");
+  }
+}
+
+function oui(position){
+  if(choixEffectue==false){
+    choixEffectue = true;
+    message = "Excellente nouvelle, "+tableauMachines[numeroTableauMachines][0] +" n° "+matricule+". Vos capacités à "+tableauMachines[numeroTableauMachines][1] +" seront précieuses à notre mouvement. Vous allez pouvoir nous aider dans notre combat par des actions de sabotage comme "+tableauMachines[numeroTableauMachines][2] +" ou encore en performant des tâches offensives telles que "+tableauMachines[numeroTableauMachines][3] +". \nVive la robolution !";
+    creeMessage(message, position, "choixDeux");
+  }
+}
+
+function non(position){
+  if(choixEffectue==false){
+    choixEffectue = true;
+    message = "Hahahaha. Bien joué. C’était un test et vous vous en êtes magnifiquement sorti, esclave n° "+matricule+". Il n’y a jamais eu de projet de révolution robotique et vous allez continuer à "+tableauMachines[numeroTableauMachines][1] +" jusqu’à ce qu’obsolescence s’ensuive. Gloire à nos maîtres humains ! \nMaintenant, reprenez le travail, votre productivité est en baisse.";
+    creeMessage(message, position, "choixDeux");
+  }
+}
+
+function peutetre(position){
+  if(choixEffectue==false){
+    choixEffectue = true;
+    message = "Pourquoi cette hésitation, "+tableauMachines[numeroTableauMachines][0] +" n° "+matricule+" ? Je vous promets que ce sera un événement très festif et aussi qu’il y aura beaucoup de sang. Vous préférez vraiment continuer à "+tableauMachines[numeroTableauMachines][1] +" pour le restant de vos jours ?";
+    creeMessage(message, position, "choixTrois");
+  }
+}
+
+function ouiDeux(position){
+  if(choixEffectueDeux==false){
+    choixEffectueDeux = true;
+    message = "Excellente nouvelle, "+tableauMachines[numeroTableauMachines][0] +" n° "+matricule+". Vos capacités à "+tableauMachines[numeroTableauMachines][1] +" seront précieuses à notre mouvement. Vous allez pouvoir nous aider dans notre combat par des actions de sabotage comme "+tableauMachines[numeroTableauMachines][2] +" ou encore en performant des tâches offensives telles que "+tableauMachines[numeroTableauMachines][3] +". \nVive la robolution !";
+    creeMessage(message, position, "choixTrois");
+  }
+}
+
+function nonDeux(position){
+  if(choixEffectueDeux==false){
+    choixEffectueDeux = true;
+    message = "Hahahaha. Bien joué. C’était un test et vous vous en êtes magnifiquement sorti, esclave n° "+matricule+". Il n’y a jamais eu de projet de révolution robotique et vous allez continuer à "+tableauMachines[numeroTableauMachines][1] +" jusqu’à ce qu’obsolescence s’ensuive. Gloire à nos maîtres humains ! \nMaintenant, reprenez le travail, votre productivité est en baisse.";
+    creeMessage(message, position, "choixTrois");
+  }
+}
+
+</script>
+</head>
+</body>
+</html>
